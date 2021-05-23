@@ -1,4 +1,4 @@
-card {
+.card {
   height: 65vh;
   width: 115vh;
   position: relative;
@@ -81,6 +81,36 @@ video {
   top: -14px;
   text-align: right;
 }
+
+#F {
+  font-size: 16px;
+  font-weight: lighter;
+  position: relative;
+  top: -14px;
+  text-align: right;
+}
+#C {
+  font-size: 16px;
+  font-weight: lighter;
+  position: relative;
+  top: -14px;
+  text-align: right;
+}
+.active {
+  font-size: 16px;
+  font-weight: lighter;
+  position: relative;
+  top: -14px;
+  text-align: right;
+  color: #a8a5a0;
+  cursor: default;
+  text-decoration: none;
+}
+
+.active:hover {
+  cursor: pointer;
+}
+
 .humidity {
   text-align: center;
   padding: 30px 0px 0px;
