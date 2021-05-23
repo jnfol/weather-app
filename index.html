@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather</title>
-    <link rel="stylesheet" href="src/style.css" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
@@ -25,6 +25,7 @@
       src="https://kit.fontawesome.com/453eacf00d.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="src/style.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
@@ -51,27 +52,32 @@
             id="search-button"
           />
           <button class="btn btn-outline-light" id="currentLocation">
-            Current Location
+            <i class="fas fa-map-marked-alt"></i>
           </button>
         </form>
         <div class="container">
           <div class="row">
-            <div class="col-6">
-              <h1 class="city">Denver</h1>
+            <div class="col-md-auto">
+              <h1 class="city"></h1>
               <p class="card-text" id="current-date"></p>
-              <p class="card-text" id="weather-description"></p>
+              <p class="card-text" id="current-time"></p>
+              <p class="card-text" id="weather-description">Sunny</p>
             </div>
-            <div class="col-2 text-center">
-              <span class="weather">☀</span>
+            <div class="col-3">
+              <img src="" alt="sunny" class="weatherEmoji" id="icon" />
             </div>
-            <div class="col-4">
-              <h1 class="mainTemp" id="current-temp">
-                54 <span class="degree" id="C">°C</span>
-                <span class="degree">| </span
-                ><span class="degree" id="F">°F</span>
-              </h1>
-              <p class="card-text" id="humidity"></p>
-              <p class="card-text" id="wind"></p>
+            <div class="col-3">
+              <strong class="mainTemp" id="current-temp"></strong>
+              <span class="unit" id="C">°C </span><span class="unit">|</span
+              ><span class="unit" id="F"> °F</span>
+
+              <p class="card-text-right" id="precipitation">
+                Precipitation 15%
+              </p>
+              <p class="card-text-right">
+                Humidity <span id="humidity"></span>%
+              </p>
+              <p class="card-text-right">Wind <span id="wind"></span>mph</p>
             </div>
           </div>
           <hr />
@@ -113,8 +119,10 @@
       </div>
     </div>
     <footer>
-      Coded by <a href="https://github.com/jnfol/weather-app">Jessi Follett</a>
+      <a href="https://github.com/jnfol/weather-app">Open-source code</a> by
+      Jessi Follett
     </footer>
     <script src="src/script.js"></script>
   </body>
 </html>
+
