@@ -1,5 +1,3 @@
-//Current date//
-
 let now = new Date();
 let formattedDate = document.querySelector("#current-date");
 let days = [
@@ -39,8 +37,6 @@ if (mins < 10) {
 }
 
 formattedTime.innerHTML = `${hour}:${mins}`;
-
-//Search City//
 
 function showWeather(response) {
   console.log(response);
@@ -89,6 +85,30 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector(".forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col">
+      <p class="weekday">
+        ${day} <br />
+        <span class="forecast-image">🌧 </span>
+        <br />
+        <span class="weektemp-max">47° <span class="weektemp">|</span><span class="weektemp-min"> 22°</span>
+      </p>
+    </div>
+`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let searchNow = document.querySelector("#city-search");
 searchNow.addEventListener("submit", handleSearch);
 
@@ -122,3 +142,5 @@ let celciusLink = document.querySelector("#C");
 celciusLink.addEventListener("click", showCelcius);
 
 citySearch("Denver");
+
+displayForecast();
