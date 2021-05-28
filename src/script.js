@@ -38,6 +38,20 @@ if (mins < 10) {
 
 formattedTime.innerHTML = `${hour}:${mins}`;
 
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat", "Sun"];
+
+  return days[day];
+}
+
+function getForecast(coordinates) {
+  let apiKey = "ec9e75b17376fa49b77d7bbec7d4c57f";
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiURL).then(displayForecast);
+}
+
 function showWeather(response) {
   console.log(response);
   document.querySelector(".city").innerHTML = response.data.name;
@@ -60,6 +74,8 @@ function showWeather(response) {
     .querySelector("#icon")
     .setAttribute("alt", response.data.weather[0].description);
   celciusTemperature = response.data.main.temp;
+
+  getForecast(response.data.coord);
 }
 
 function citySearch(city) {
@@ -85,24 +101,35 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
-function displayForecast() {
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector(".forecast");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col">
       <p class="weekday">
-        ${day} <br />
-        <span class="forecast-image">🌧 </span>
+        ${formatForecastDay(forecastDay.dt)} <br />
+        <img src=  "http://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }@2x.png"
+        alt = ""
+        width = 50px;
+        </img>
         <br />
-        <span class="weektemp-max">47° <span class="weektemp">|</span><span class="weektemp-min"> 22°</span>
+        <span class="weektemp-max">${Math.round(
+          forecastDay.temp.max
+        )}° <span class="weektemp">|</span><span class="weektemp-min"> ${Math.round(
+          forecastDay.temp.min
+        )}°</span>
       </p>
     </div>
 `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -142,5 +169,3 @@ let celciusLink = document.querySelector("#C");
 celciusLink.addEventListener("click", showCelcius);
 
 citySearch("Denver");
-
-displayForecast();
